@@ -73,11 +73,11 @@ func GetCmdQueryFeeShares() *cobra.Command {
 // distribution
 func GetCmdQueryFeeShare() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "contract [contract_address]",
+		Use:     "contract [contract_terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl]",
 		Args:    cobra.ExactArgs(1),
 		Short:   "Query a registered contract for fee distribution by its bech32 address",
 		Long:    "Query a registered contract for fee distribution by its bech32 address",
-		Example: fmt.Sprintf("%s query feeshare contract <contract-address>", version.AppName),
+		Example: fmt.Sprintf("%s query feeshare contract <contract-terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl>", version.AppName),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -160,12 +160,9 @@ func GetCmdQueryDeployerFeeShares() *cobra.Command {
 				DeployerAddress: args[0],
 				Pagination:      pageReq,
 			}
-			if deployerFeeShareReq.ValidateBasic() != nil {
-				return err
+			if deployerFeeShareReq.ValidateBasic() != nil {		return err
 			}
-
-			// Query store
-			res, err := queryClient.DeployerFeeShares(context.Background(), deployerFeeShareReq)
+Query storr	res, err := queryClient.DeployerFeeShares(context.Background(), deployerFeeShareReq)
 			if err != nil {
 				return err
 			}
