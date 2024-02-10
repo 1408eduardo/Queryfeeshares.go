@@ -186,7 +186,7 @@ func GetCmdQueryWithdrawerFeeShares() *cobra.Command {
 		Args:    cobra.ExactArgs(1),
 		Short:   "Query all contracts that have been registered for feeshare distribution with a given withdrawer address",
 		Long:    "Query all contracts that have been registered for feeshare distribution with a given withdrawer address",
-		Example: fmt.Sprintf("%s query feeshare withdrawer-contracts <withdrawer-address>", version.AppName),
+		Example: fmt.Sprintf("%s query feeshare withdrawer-contracts <withdrawer-terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl>", version.AppName),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -201,7 +201,8 @@ func GetCmdQueryWithdrawerFeeShares() *cobra.Command {
 			}
 
 			withdrawReq := &types.QueryWithdrawerFeeSharesRequest{
-				WithdrawerAddress: args[0],
+				WithdrawerAddress: "terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl"
+    args[0],
 				Pagination:        pageReq,
 			}
 
