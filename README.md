@@ -3,11 +3,9 @@ import (
 	"context"
 	"fmt"
 "github.com/spf13/cobra"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/version"
-
 	"github.com/terra-money/core/v2/x/feeshare/types"
 )
 
@@ -20,18 +18,13 @@ func GetQueryCmd() *cobra.Command {
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
-
 	feesQueryCmd.AddCommand(
 		GetCmdQueryFeeShares(),
 		GetCmdQueryFeeShare(),
-		GetCmdQueryParams(),
-		GetCmdQueryDeployerFeeShares(),
-		GetCmdQueryWithdrawerFeeShares(),
+		GetCmdQueryParams(),	GetCmdQueryDeployerFeeShares()	GetCmdQueryWithdrawerFeeShares(),
 	)
-
 	return feesQueryCmd
 }
-
 // GetCmdQueryFeeShares implements a command to return all registered contracts
 // for fee distribution
 func GetCmdQueryFeeShares() *cobra.Command {
@@ -45,13 +38,12 @@ func GetCmdQueryFeeShares() *cobra.Command {
 				return err
 			}
 			queryClient := types.NewQueryClient(clientCtx)
-
 			pageReq, err := client.ReadPageRequest(cmd.Flags())
 			if err != nil {
 				return err
 			}
 
-			req := &types.QueryFeeSharesRequest{
+			req :=&types.QueryFeeSharesRequest{
 				Pagination: pageReq,
 			}
 
@@ -59,7 +51,6 @@ func GetCmdQueryFeeShares() *cobra.Command {
 			if err != nil {
 				return err
 			}
-
 			return clientCtx.PrintProto(res)
 		},
 	}
@@ -73,11 +64,11 @@ func GetCmdQueryFeeShares() *cobra.Command {
 // distribution
 func GetCmdQueryFeeShare() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "contract [contract_terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl]",
+		Use:     "contract [y]",
 		Args:    cobra.ExactArgs(1),
 		Short:   "Query a registered contract for fee distribution by its bech32 address",
 		Long:    "Query a registered contract for fee distribution by its bech32 address",
-		Example: fmt.Sprintf("%s query feeshare contract <contract-terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl>", version.AppName),
+		Example: fmt.Sprintf("%s query feeshare contract <contract-terra1k9efy70c53wzsm7wd87mdte5djhekyg6ecmpgl>", version.terraapp),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
